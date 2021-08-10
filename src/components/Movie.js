@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Stack, Image, Box, Grid, GridItem,Text } from "@chakra-ui/react";
+import {
+  Stack,
+  Image,
+  Box,
+  Grid,
+  GridItem,
+  Text,
+  Button,
+} from "@chakra-ui/react";
+
 import MovieRandom from "./MovieRandom";
 
 const Movie = () => {
@@ -14,18 +23,17 @@ const Movie = () => {
   }, [params]);
 
   return (
-    <Grid templateColumns="repeat(5, 1fr)" templateRows="repeat(5, 1fr)" gap={6}>
+    <Grid templateColumns="repeat(5, 1fr)" gap={6}>
       <GridItem colSpan={4}>
         <Box m={4} p={10}>
           <Grid templateColumns="repeat(5, 1fr)" gap={2}>
-          <GridItem colSpan={5} margin="auto">
+            <GridItem colSpan={5} margin="auto">
               <Text>{movie.Title}</Text>
-
             </GridItem>
             <GridItem colSpan={2}>
               <Image src={movie.Poster} alt={movie.Title}></Image>
             </GridItem>
-            <GridItem colSpan={3} >
+            <GridItem colSpan={3}>
               <Box pt={10}>
                 <h2>Year: {movie.Year}</h2>
                 <p>Rated: {movie.Rated}</p>
@@ -36,6 +44,9 @@ const Movie = () => {
                 <p>Writer: {movie.Writer}</p>
                 <p>Actors: {movie.Actors}</p>Plot
                 <p>Plot: {movie.Plot}</p>
+                <Box my={5}>
+                  <Button colorScheme="teal"> Add to Favorites</Button>
+                </Box>
               </Box>
             </GridItem>
           </Grid>

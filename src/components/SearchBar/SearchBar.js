@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { search_movies, clear_search } from "../../redux/actions";
+import { searchMovies, clearSearch } from "../../redux/actions";
 import ResultBox from "../ResultBox/ResultBox";
 import "./SearchBar.css";
 import { Input, Button, Stack, Flex, FormControl, Box } from "@chakra-ui/react";
@@ -17,7 +17,7 @@ export default function SearchBar() {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    dispatch(search_movies(search));
+    dispatch(searchMovies(search));
 
   };
 
@@ -53,8 +53,8 @@ export default function SearchBar() {
         </form>
       </Stack>
 
-      {store.search.length != 0 && (
-        <div onClick={()=> {setSearch(""); dispatch(clear_search()); }} className="dataResult">
+      {(store.search.length != 0 && store.search) && (
+        <div onClick={()=> {setSearch(""); dispatch(clearSearch()); }} className="dataResult">
           {store.search.map((s) => (
             <ResultBox title={s.Title} id={s.imdbID}></ResultBox>
           ))}
