@@ -4,25 +4,32 @@ import ResultBox from "../ResultBox/ResultBox";
 import "./SearchBar.css";
 import { Input, Button, Stack, Flex, FormControl, Box } from "@chakra-ui/react";
 
+const REACT_APP_API_NEW_MOVIES = process.env.REACT_APP_API_NEW_MOVIES;
+
+
 export default function SearchBar() {
   const [search, setSearch] = useState("");
   const [result, setResult] = useState([]);
 
-  const REACT_APP_API_NEW_MOVIES = process.env.REACT_APP_API_NEW_MOVIES;
-
   useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/search/movie?api_key=${REACT_APP_API_NEW_MOVIES}&language=en-US&query=${encodeURIComponent(
-        search
-      )}&page=1&include_adult=false`
-    )
-      .then((res) => res.json(), (error)=> console.log("promise: ",error))
-      .then((data) => {
-        if(!data.errors){
-          setResult(data.results)
-        }else{setResult([])}
-      })
-      .catch((error) => (error)=> console.log("promise: ",error));
+    if (search !== ""){
+
+      fetch(
+        `https://api.themoviedb.org/3/search/movie?api_key=${REACT_APP_API_NEW_MOVIES}&language=en-US&query=${encodeURIComponent(
+          search
+        )}&page=1&include_adult=false`
+      )
+        .then((res) => res.json(), ()=> setResult([]))
+        .then((data) => {
+          if(!data.errors){
+            setResult(data.results)
+          }else{setResult([])}
+        })
+        .catch((error) => console.log("promise: ",error));
+    }else{
+      setSearch("");
+      setResult([]);
+    }
   }, [search]);
 
   const handleOnChange = (e) => {
@@ -66,8 +73,8 @@ export default function SearchBar() {
           </Flex>
         </form>
       </Stack>
-      {(result.length != 0 && result) && (
-        <div onClick={() => setResult([])} className="dataResult">
+      {result.length !== 0 && (
+        <div onClick={() => {setResult([]); setSearch("")}} className="dataResult">
           {result.map((s) => (
             <ResultBox title={s.original_title} id={s.id}></ResultBox>
           ))}

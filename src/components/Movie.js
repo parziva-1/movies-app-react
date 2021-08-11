@@ -1,28 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import {
-  Stack,
-  Image,
-  Box,
-  Grid,
-  GridItem,
-  Text,
-  Button,
-} from "@chakra-ui/react";
+import { useDispatch, useSelector } from "react-redux";
+import { addMovieReview, addToList, deleteMovie } from "../redux/actions";
+import { Image, Box, Grid, GridItem, Text, Button } from "@chakra-ui/react";
+import { useToggle } from "../lib/customHooks";
 
 import MovieRandom from "./MovieRandom";
 
 const REACT_APP_API_NEW_MOVIES = process.env.REACT_APP_API_NEW_MOVIES;
+
 const Movie = () => {
+  // Dispatch to store
+  const dispatch = useDispatch();
+
+  // Suscribe to store
+  const store = useSelector((state) => ({ movie: state.movies.moviesList }));
+  // Params of url
   const params = useParams();
+
+  //custom Hook for toggle
+  const [isEdit, setIsEdit] = useToggle();
+
+  //useState for the current movie
   const [movie, setMovie] = useState("");
+  //useState for the review
+  const [review, setReview] = useState("");
+
   useEffect(() => {
     fetch(
       `https://api.themoviedb.org/3/movie/${params.id}?api_key=${REACT_APP_API_NEW_MOVIES}&language=en-US`
     ).then((res) => res.json().then((data) => setMovie(data)));
     setMovie("");
   }, [params]);
-  console.log(movie);
   return (
     <Grid templateColumns="repeat(5, 1fr)" gap={6}>
       <GridItem colSpan={4}>
@@ -32,7 +41,10 @@ const Movie = () => {
               <Text>{movie.original_title}</Text>
             </GridItem>
             <GridItem colSpan={2}>
-              <Image src={`https://image.tmdb.org/t/p/original/`+movie.poster_path} alt={movie.original_title}></Image>
+              <Image
+                src={`https://image.tmdb.org/t/p/original/` + movie.poster_path}
+                alt={movie.original_title}
+              ></Image>
             </GridItem>
             <GridItem colSpan={3}>
               <Box pt={10}>
@@ -62,8 +74,63 @@ const Movie = () => {
                 <p>Plot: {movie.Plot}</p>
                 {/*<p>{movie.overview}</p>*/}
                 <Box my={5}>
-                  <Button colorScheme="teal"> Add to Favorites</Button>
+                  {store.movie.some((m) => m.id === movie.id) ? (
+                    <div>
+                      {isEdit ? (
+                        <>
+                          <Button
+                            onClick={(e) => {
+                              if (review != "") {
+                                dispatch(
+                                  addMovieReview({ review, id: movie.id })
+                                );
+                                setIsEdit();
+                              } else alert("You cannot add an empty review");
+                            }}
+                          >
+                            Save
+                          </Button>
+                          <Button onClick={setIsEdit}>Cancel</Button>
+                        </>
+                      ) : (
+                        <>
+                          <Button
+                            onClick={() => dispatch(deleteMovie(movie.id))}
+                          >
+                            Delete Movie
+                          </Button>
+                          <Button onClick={setIsEdit}>Add Review</Button>
+                        </>
+                      )}
+                    </div>
+                  ) : (
+                    <Button
+                      onClick={() =>
+                        dispatch(
+                          addToList({
+                            id: movie.id,
+                            title: movie.original_title,
+                          })
+                        )
+                      }
+                      colorScheme="teal"
+                    >
+                      Add To List
+                    </Button>
+                  )}
                 </Box>
+                {isEdit ? (
+                  <Box>
+                    <form>
+                      <textarea
+                        onChange={(e) => setReview(e.target.value)}
+                        placeholder="Add your review"
+                      ></textarea>
+                    </form>
+                  </Box>
+                ) : (
+                  ""
+                )}
               </Box>
             </GridItem>
           </Grid>
