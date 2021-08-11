@@ -1,24 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-import { useDispatch, useSelector } from "react-redux";
-import { searchMovies, clearSearch } from "../../redux/actions";
 import ResultBox from "../ResultBox/ResultBox";
 import "./SearchBar.css";
 import { Input, Button, Stack, Flex, FormControl, Box } from "@chakra-ui/react";
 
 export default function SearchBar() {
   const [search, setSearch] = useState("");
-  const dispatch = useDispatch();
-  const store = useSelector((store) => ({ search: store.movies.search }));
+  const [result, setResult] = useState([]);
+
+  const REACT_APP_API_NEW_MOVIES = process.env.REACT_APP_API_NEW_MOVIES;
+
+  useEffect(() => {
+    fetch(
+      `https://api.themoviedb.org/3/search/movie?api_key=${REACT_APP_API_NEW_MOVIES}&language=en-US&query=${encodeURIComponent(
+        search
+      )}&page=1&include_adult=false`
+    )
+      .then((res) => res.json(), (error)=> console.log("promise: ",error))
+      .then((data) => {
+        if(!data.errors){
+          setResult(data.results)
+        }else{setResult([])}
+      })
+      .catch((error) => (error)=> console.log("promise: ",error));
+  }, [search]);
 
   const handleOnChange = (e) => {
+
     setSearch(e.target.value);
   };
 
   const handleOnSubmit = (e) => {
-    e.preventDefault();
-    dispatch(searchMovies(search));
 
+    e.preventDefault();
   };
 
   return (
@@ -52,11 +66,10 @@ export default function SearchBar() {
           </Flex>
         </form>
       </Stack>
-
-      {(store.search.length != 0 && store.search) && (
-        <div onClick={()=> {setSearch(""); dispatch(clearSearch()); }} className="dataResult">
-          {store.search.map((s) => (
-            <ResultBox title={s.Title} id={s.imdbID}></ResultBox>
+      {(result.length != 0 && result) && (
+        <div onClick={() => setResult([])} className="dataResult">
+          {result.map((s) => (
+            <ResultBox title={s.original_title} id={s.id}></ResultBox>
           ))}
         </div>
       )}
