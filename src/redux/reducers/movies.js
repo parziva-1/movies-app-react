@@ -17,7 +17,7 @@ const movies = (state = initialState, action) => {
       console.log(state.moviesList[0])  
       return {
         ...state,
-        moviesList: state.moviesList.filter((m) => m.id != action.payload)
+        moviesList: state.moviesList.filter((m) => m.id !== action.payload)
       }
       case ADD_MOVIE_REVIEW: return {
         ...state,

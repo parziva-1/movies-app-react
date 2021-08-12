@@ -10,28 +10,34 @@ import MovieRandom from "./MovieRandom";
 const REACT_APP_API_NEW_MOVIES = process.env.REACT_APP_API_NEW_MOVIES;
 
 const Movie = () => {
+  // Params of url
+  const params = useParams();
+
   // Dispatch to store
   const dispatch = useDispatch();
 
   // Suscribe to store
-  const store = useSelector((state) => ({ movie: state.movies.moviesList }));
-  // Params of url
-  const params = useParams();
+  const store = useSelector((state) => ({
+    movie: state.movies.moviesList.filter((m) => m.id === parseInt(params.id)),
+  }));
 
   //custom Hook for toggle
   const [isEdit, setIsEdit] = useToggle();
 
   //useState for the current movie
   const [movie, setMovie] = useState("");
-  //useState for the review
-  const [review, setReview] = useState("");
 
+  const initialReview = store.movie[0]?.review ? store.movie[0].review : "";
+  //useState for the review
+  const [review, setReview] = useState(initialReview);
+  //useEffect for data of current movie
   useEffect(() => {
     fetch(
       `https://api.themoviedb.org/3/movie/${params.id}?api_key=${REACT_APP_API_NEW_MOVIES}&language=en-US`
     ).then((res) => res.json().then((data) => setMovie(data)));
     setMovie("");
   }, [params]);
+
   return (
     <Grid templateColumns="repeat(5, 1fr)" gap={6}>
       <GridItem colSpan={4}>
@@ -74,13 +80,14 @@ const Movie = () => {
                 <p>Plot: {movie.Plot}</p>
                 {/*<p>{movie.overview}</p>*/}
                 <Box my={5}>
-                  {store.movie.some((m) => m.id === movie.id) ? (
+                  {store.movie[0] && store.movie[0].id === movie.id ? (
                     <div>
                       {isEdit ? (
                         <>
                           <Button
+                            colorScheme="teal"
                             onClick={(e) => {
-                              if (review != "") {
+                              if (review !== "") {
                                 dispatch(
                                   addMovieReview({ review, id: movie.id })
                                 );
@@ -90,16 +97,23 @@ const Movie = () => {
                           >
                             Save
                           </Button>
-                          <Button onClick={setIsEdit}>Cancel</Button>
+                          <Button colorScheme="teal" onClick={setIsEdit}>
+                            Cancel
+                          </Button>
                         </>
                       ) : (
                         <>
                           <Button
+                            colorScheme="teal"
                             onClick={() => dispatch(deleteMovie(movie.id))}
                           >
                             Delete Movie
                           </Button>
-                          <Button onClick={setIsEdit}>Add Review</Button>
+                          <Button colorScheme="teal" onClick={setIsEdit}>
+                            {store.movie[0]?.review
+                              ? "Edit Review"
+                              : "Add Review"}
+                          </Button>
                         </>
                       )}
                     </div>
@@ -119,14 +133,28 @@ const Movie = () => {
                     </Button>
                   )}
                 </Box>
+                {/* isEdit es un booleano, en caso de estar true quiere decir que vamos a editar o crear una review */}
                 {isEdit ? (
                   <Box>
                     <form>
                       <textarea
+                        value={review}
                         onChange={(e) => setReview(e.target.value)}
                         placeholder="Add your review"
                       ></textarea>
                     </form>
+                  </Box>
+                ) : (
+                  ""
+                )}
+                {/* Para mostrar la review preguntamos que si en el estado global la pelicula actual tiene
+                una propiedad review y se muestra, o no se muestra */}
+                {!!store.movie[0] && !!store.movie[0].review ? (
+                  <Box>
+                    <div>
+                      <p>Your review</p>
+                      <p>{store.movie[0].review}</p>
+                    </div>
                   </Box>
                 ) : (
                   ""
