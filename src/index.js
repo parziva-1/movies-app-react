@@ -9,6 +9,7 @@ import { store } from "./redux/store";
 import Nav from "./components/Nav";
 import Movie from "./components/Movie";
 import FavoriteMovies from './components/FavoriteMovies'
+import MyList from './components/MyList'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -19,6 +20,7 @@ ReactDOM.render(
           <Route exact path="/" component={App}></Route>
           <Route path="/movie/:id" component={Movie}></Route>
           <Route path="/favorites" component={FavoriteMovies}></Route>
+          <Route path="/my-list" component={MyList}></Route>
         </BrowserRouter>
       </ChakraProvider>
     </Provider>

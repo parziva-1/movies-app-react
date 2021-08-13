@@ -5,7 +5,6 @@ import { addMovieReview, addToList, deleteMovie } from "../redux/actions";
 import { Image, Box, Grid, GridItem, Text, Button } from "@chakra-ui/react";
 import { useToggle } from "../lib/customHooks";
 
-import MovieRandom from "./MovieRandom";
 
 const REACT_APP_API_NEW_MOVIES = process.env.REACT_APP_API_NEW_MOVIES;
 
@@ -124,6 +123,7 @@ const Movie = () => {
                           addToList({
                             id: movie.id,
                             title: movie.original_title,
+                            img: movie.poster_path
                           })
                         )
                       }
@@ -165,7 +165,7 @@ const Movie = () => {
         </Box>
       </GridItem>
       <GridItem colSpan={1} m={4} p={10}>
-        <MovieRandom />
+        
       </GridItem>
     </Grid>
   );

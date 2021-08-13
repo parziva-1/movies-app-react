@@ -1,4 +1,7 @@
-import { ADD_TO_LIST, DELETE_MOVIE, ADD_MOVIE_REVIEW } from "./actionTypes";
+
+import { ADD_TO_LIST, DELETE_MOVIE, ADD_MOVIE_REVIEW, UPDATE_MOVIES_TOP_WEEK, UPDATE_MOVIES_TOP_DAY } from "./actionTypes";
+
+const REACT_APP_API_NEW_MOVIES = process.env.REACT_APP_API_NEW_MOVIES
 
 export const addToList = (movie) => {
   const newMovie = {
@@ -21,3 +24,24 @@ export const deleteMovie = (payload)=> {
 }
 
 export const addMovieReview = (payload) => ({type:ADD_MOVIE_REVIEW, payload})
+
+
+export const updateMoviesTopDay = () => {
+  return function (dispatch) {
+    return fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${REACT_APP_API_NEW_MOVIES}`)
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({ type: UPDATE_MOVIES_TOP_DAY, payload: {top: data.results, date: Date.now()} });
+      });
+  };
+}
+
+export const updateMoviesTopWeek = () => {
+  return function (dispatch) {
+    return fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${REACT_APP_API_NEW_MOVIES}`)
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({ type: UPDATE_MOVIES_TOP_WEEK, payload: {top: data.results, date: Date.now()} });
+      });
+  };
+}

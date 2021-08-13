@@ -50,9 +50,10 @@ const Header = (props) => {
         flexGrow={1}
         mt={{ base: 4, md: 0 }}
       >
-        <Link to="/favorites">
-          <Text>Favorites</Text>
+        <Link to="/my-list">
+          <Text>My List</Text>
         </Link>
+
       </Stack>
 
       <Box
