@@ -1,6 +1,6 @@
 import React from "react";
 import {GridItem, Grid, Box} from '@chakra-ui/react'
-import MovieRandom from './MovieRandom'
+
 
 const FavoriteMovies = () => {
   return (
@@ -11,7 +11,7 @@ const FavoriteMovies = () => {
         </Box>
       </GridItem>
       <GridItem colSpan={1} m={4} p={10}>
-        <MovieRandom />
+        
       </GridItem>
     </Grid>
   );
