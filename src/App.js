@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { updateMoviesTopDay, updateMoviesTopWeek } from "./redux/actions";
 import MovieCard from "./components/MovieCard";
+import { saveState } from "./lib/";
 
 function App() {
   const store = useSelector((store) => ({
     moviesTopWeek: store.movies.moviesTopWeek,
     moviesTopDay: store.movies.moviesTopDay,
+    store,
   }));
 
   const dispatch = useDispatch();
@@ -27,7 +29,9 @@ function App() {
       console.log("week");
       dispatch(updateMoviesTopWeek());
     }
-  }, []);
+    saveState(store.store)
+
+  }, [store]);
 
   return (
     <Box>
