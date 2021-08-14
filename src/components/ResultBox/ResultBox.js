@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import "./ResultBox.css";
 const ResultBox = ({ title, id }) => {
   return (
-    <Link to={`/movie/${id}`}>
-      <div className="item">{title}</div>
-    </Link>
+    <div className="item" >
+      <Link to={`/movie/${id}`}>
+        <div>{title}</div>
+      </Link>
+    </div>
   );
 };
 

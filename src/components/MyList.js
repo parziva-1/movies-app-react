@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import MovieCard from "./MovieCard";
+import MovieCard from "./MovieCard/MovieCard";
 import { Flex, Spacer } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 const MyList = () => {

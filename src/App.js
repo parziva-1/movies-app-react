@@ -2,8 +2,9 @@ import { Grid, GridItem, Box, Wrap, WrapItem, Text } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { updateMoviesTopDay, updateMoviesTopWeek } from "./redux/actions";
-import MovieCard from "./components/MovieCard";
+import MovieCard from "./components/MovieCard/MovieCard";
 import { saveState } from "./lib/";
+ import "./App.css"
 
 function App() {
   const store = useSelector((store) => ({
@@ -34,11 +35,11 @@ function App() {
   }, [store]);
 
   return (
-    <Box>
-      <Box>
-        <Text>Top Of The Day</Text>
-        <Wrap>
-          <WrapItem>
+    <div>
+      <div>
+        <h1>Top Of The Day</h1>
+        <div className="wrapper-movie">
+          <div className="movie-top-day">
             {store.moviesTopDay.date !== "" &&
               store.moviesTopDay?.top.map((m) => (
                 <MovieCard
@@ -48,13 +49,13 @@ function App() {
                   img={m.poster_path}
                 />
               ))}
-          </WrapItem>
-        </Wrap>
-      </Box>
-      <Box>
-        <Text>Top Of The Week</Text>
-        <Wrap>
-          <WrapItem>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h1>Top Of The Week</h1>
+        <div className="wrapper-movie">
+          <div className="movie-top-day">
             {store.moviesTopWeek.date !== "" &&
               store.moviesTopWeek?.top.map((m) => (
                 <MovieCard
@@ -64,10 +65,10 @@ function App() {
                   img={m.poster_path}
                 />
               ))}
-          </WrapItem>
-        </Wrap>
-      </Box>
-    </Box>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 

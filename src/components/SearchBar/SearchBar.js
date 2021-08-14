@@ -75,9 +75,9 @@ export default function SearchBar() {
       </Stack>
       {result.length !== 0 && (
         <div onClick={() => {setResult([]); setSearch("")}} className="dataResult">
-          {result.map((s) => (
-            <ResultBox title={s.original_title} id={s.id}></ResultBox>
-          ))}
+            {result.map((s) => (
+              <ResultBox title={s.original_title} id={s.id}></ResultBox>
+            ))}
         </div>
       )}
     </div>

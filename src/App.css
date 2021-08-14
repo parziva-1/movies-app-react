@@ -1,0 +1,12 @@
+.wrapper-movie {
+    width: auto;
+    overflow: auto;
+}
+
+.movie-top-day {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: flex-start;
+}
