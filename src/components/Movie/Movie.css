@@ -27,7 +27,7 @@
   box-shadow: #000;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
     .movie-principal-grid {
         display: grid;
         grid-template-columns: 1fr;
