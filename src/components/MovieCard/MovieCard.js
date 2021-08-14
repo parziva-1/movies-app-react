@@ -1,6 +1,6 @@
 import React from "react";
-import { Box, Image, Text } from "@chakra-ui/react";
-import { useDispatch } from "react-redux";
+import { Image } from "@chakra-ui/react";
+//import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import "./MovieCard.css"
 //p={5} m={4} maxW="sm" w="15%" borderWidth="1px" borderRadius="sm" overflow="hidden"

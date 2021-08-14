@@ -1,4 +1,3 @@
-import { Grid, GridItem, Box, Wrap, WrapItem, Text } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { updateMoviesTopDay, updateMoviesTopWeek } from "./redux/actions";
@@ -20,14 +19,12 @@ function App() {
       store.moviesTopDay.date === "" ||
       store.moviesTopDay.date + 86600000 < Date.now()
     ) {
-      console.log("day");
       dispatch(updateMoviesTopDay());
     }
     if (
       store.moviesTopWeek.date === "" ||
       store.moviesTopWeek.date + 86600000 * 7 < Date.now()
     ) {
-      console.log("week");
       dispatch(updateMoviesTopWeek());
     }
     saveState(store.store)
