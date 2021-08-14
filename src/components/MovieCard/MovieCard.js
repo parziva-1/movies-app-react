@@ -12,10 +12,10 @@ const MovieCard = ({ title, img, isFavorite, score, id }) => {
     <div className="movie-card">
       <Link to={`/movie/${id}`}>
         <p>{title.length > 15 ? title.substring(0,15)+"..." : title}</p>
-        <img className="movie-card-img"
+        <Image className="movie-card-img"
           src={`https://image.tmdb.org/t/p/original${img}`}
           alt={title}
-        ></img>
+        ></Image>
       </Link>
     </div>
   );

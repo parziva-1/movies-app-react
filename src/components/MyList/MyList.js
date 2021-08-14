@@ -1,14 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import MovieCard from "./MovieCard/MovieCard";
+import MovieCard from "../MovieCard/MovieCard";
 import { Flex, Spacer } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import "./MyList.css";
+
 const MyList = () => {
   const store = useSelector((store) => ({
     movies: store.movies.moviesList,
   }));
   return (
-    <Flex>
+    <div className="my-list-flex">
       {store.movies.map((m) => (
         <React.Fragment key={m.id}>
           <MovieCard
@@ -19,7 +20,7 @@ const MyList = () => {
           />
         </React.Fragment>
       ))}
-    </Flex>
+    </div>
   );
 };
 

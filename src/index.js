@@ -7,9 +7,9 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import Nav from "./components/Nav";
-import Movie from "./components/Movie";
+import Movie from "./components/Movie/Movie";
 import FavoriteMovies from './components/FavoriteMovies'
-import MyList from './components/MyList'
+import MyList from './components/MyList/MyList'
 
 ReactDOM.render(
   <React.StrictMode>

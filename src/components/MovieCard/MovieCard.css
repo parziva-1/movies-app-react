@@ -1,16 +1,23 @@
-.movie-card{
-    margin-left: 0.5em;
-    margin-right: 0.5rem;
+.movie-card {
+  margin-left: 0.5em;
+  margin-right: 0.5rem;
+  transition: transform 1s, margin-right 1s, margin-left 1s;
 }
 
-.movie-card-img{
+.movie-card-img {
   max-width: 9em;
-    object-fit: cover;
+  object-fit: cover;
+}
+
+.movie-card:hover {
+  transform: scale(1.2);
+  margin-left: 2rem;
+  margin-right: 2rem;
 }
 
 @media (max-width: 400px) {
-    .movie-card-img{
-        max-width: 8em;
-          object-fit: cover;
-      }
+  .movie-card-img {
+    max-width: 8em;
+    object-fit: cover;
+  }
 }
