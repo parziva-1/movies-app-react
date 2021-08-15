@@ -1,18 +1,26 @@
 .movie-card {
   margin-left: 0.5em;
   margin-right: 0.5rem;
-  transition: transform 1s, margin-right 1s, margin-left 1s;
+  transition: box-shadow 0.5s, transform 1s, margin-right 1s, margin-left 1s;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+  border-radius: 9px;
+  border: 1px solid rgba(0, 0, 0, 0.267);
+
 }
 
 .movie-card-img {
   max-width: 9em;
   object-fit: cover;
+  border-radius: 9px;
 }
 
 .movie-card:hover {
-  transform: scale(1.2);
+  /*transform: scale(1.2);
   margin-left: 2rem;
-  margin-right: 2rem;
+  margin-right: 2rem;*/
+  box-shadow: 3px 5px 10px #888888;
 }
 
 @media (max-width: 400px) {

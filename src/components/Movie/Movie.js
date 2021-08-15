@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addMovieReview, addToList, deleteMovie } from "../../redux/actions";
-import { Image, Box, Text, Button } from "@chakra-ui/react";
+import { Image, Box, Text, Button, Flex, Spacer } from "@chakra-ui/react";
 import { useToggle } from "../../lib/customHooks";
 import { saveState } from "../../lib";
 import "./Movie.css";
-
+import ButtonsMovie from "../ButtonsMovie";
+import { movieState } from "../../redux/actions";
 const REACT_APP_API_NEW_MOVIES = process.env.REACT_APP_API_NEW_MOVIES;
 
 const Movie = () => {
@@ -45,11 +45,16 @@ const Movie = () => {
 
   return (
     <div className="movie-principal-grid">
-      <div className="movie-div-poster-img">
-        <Image
+      <div
+        className={`movie-div-poster-img`}
+        title={movie.original_title}
+        onClick={() => dispatch(movieState(movie.id))}
+      >
+        <Image className={store.movie[0].stateMovie ? "movie-watched" : "movie-pending"}
           src={`https://image.tmdb.org/t/p/original/` + movie.poster_path}
           alt={movie.original_title}
         ></Image>
+        {store.movie[0].stateMovie ? <p>Movie State: Watched </p>: <p>Movie State: Pending</p>}
       </div>
       <div className="movie-div-info">
         <h1>{movie.original_title}</h1>
@@ -74,57 +79,17 @@ const Movie = () => {
           </p>
         </div>
         <p>Overview: {movie.overview}</p>
-        <Box my={5}>
-          {store.movie[0] && store.movie[0].id === movie.id ? (
-            <div>
-              {isEdit ? (
-                <>
-                  <Button
-                    colorScheme="teal"
-                    onClick={(e) => {
-                      if (review !== "") {
-                        dispatch(addMovieReview({ review, id: movie.id }));
-                        setIsEdit();
-                      } else alert("You cannot add an empty review");
-                    }}
-                  >
-                    Save
-                  </Button>
-                  <Button colorScheme="teal" onClick={setIsEdit}>
-                    Cancel
-                  </Button>
-                </>
-              ) : (
-                <>
-                  <Button
-                    colorScheme="teal"
-                    onClick={() => dispatch(deleteMovie(movie.id))}
-                  >
-                    Delete Movie
-                  </Button>
-                  <Button colorScheme="teal" onClick={setIsEdit}>
-                    {store.movie[0]?.review ? "Edit Review" : "Add Review"}
-                  </Button>
-                </>
-              )}
-            </div>
-          ) : (
-            <Button
-              onClick={() =>
-                dispatch(
-                  addToList({
-                    id: movie.id,
-                    title: movie.original_title,
-                    img: movie.poster_path,
-                  })
-                )
-              }
-              colorScheme="teal"
-            >
-              Add To List
-            </Button>
-          )}
-        </Box>
+        {/* Buttos  */}
+        <ButtonsMovie
+          store={store}
+          movie={movie}
+          isEdit={isEdit}
+          setIsEdit={setIsEdit}
+          dispatch={dispatch}
+          review={review}
+          setReview={setReview}
+        />
+
         {/* isEdit es un booleano, en caso de estar true quiere decir que vamos a editar o crear una review */}
         {isEdit ? (
           <Box>
@@ -141,19 +106,17 @@ const Movie = () => {
         )}
         {/* Para mostrar la review preguntamos que si en el estado global la pelicula actual tiene
                 una propiedad review y se muestra, o no se muestra */}
-        
       </div>
       {!!store.movie[0] && !!store.movie[0].review ? (
-          <div className="movie-review">
-            <div>
-              <p>Your review</p>
-              <p>{store.movie[0].review}</p>
-            </div>
-            {console.log(movie)}
+        <div className="movie-review">
+          <div>
+            <p>Your review</p>
+            <p>{store.movie[0].review}</p>
           </div>
-        ) : (
-          ""
-        )}
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

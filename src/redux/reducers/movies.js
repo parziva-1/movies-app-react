@@ -4,12 +4,14 @@ import {
   ADD_MOVIE_REVIEW,
   UPDATE_MOVIES_TOP_WEEK,
   UPDATE_MOVIES_TOP_DAY,
+  DELETE_REVIEW,
+  MOVIE_STATE,
 } from "../actionTypes";
 
 const initialState = {
   moviesList: [],
-  moviesTopWeek: {date: "" },
-  moviesTopDay: {date: ""}
+  moviesTopWeek: { date: "" },
+  moviesTopDay: { date: "" },
 };
 
 const movies = (state = initialState, action) => {
@@ -34,10 +36,26 @@ const movies = (state = initialState, action) => {
             : m
         ),
       };
+    case DELETE_REVIEW:
+      return {
+        ...state,
+        moviesList: state.moviesList.map(({ review, ...m }) =>
+          m.id === action.payload ? { ...m } : { ...m, review }
+        ),
+      };
     case UPDATE_MOVIES_TOP_WEEK:
       return { ...state, moviesTopWeek: action.payload };
     case UPDATE_MOVIES_TOP_DAY:
       return { ...state, moviesTopDay: action.payload };
+    case MOVIE_STATE:
+      return {
+        ...state,
+        moviesList: state.moviesList.map((m) =>
+          m.id === action.payload
+            ? { ...m, stateMovie: !m.stateMovie }
+            : m
+        ),
+      };
     default:
       return state;
   }
