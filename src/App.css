@@ -1,12 +1,21 @@
-.wrapper-movie {
+/* .wrapper-movie {
     width: auto;
     overflow: auto;
-}
+} */
 
 .movie-top-day {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  align-items: flex-start;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  padding: 10px;
+  /*scrollbar-width: none;*/
 }
+
+/* .movie-top-day::-webkit-scrollbar {
+display: none;
+
+}
+ */

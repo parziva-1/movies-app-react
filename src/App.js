@@ -3,7 +3,8 @@ import { useEffect } from "react";
 import { updateMoviesTopDay, updateMoviesTopWeek } from "./redux/actions";
 import MovieCard from "./components/MovieCard/MovieCard";
 import { saveState } from "./lib/";
- import "./App.css"
+import MovieCards from "./components/MovieCards/MovieCards";
+import "./App.css";
 
 function App() {
   const store = useSelector((store) => ({
@@ -27,44 +28,21 @@ function App() {
     ) {
       dispatch(updateMoviesTopWeek());
     }
-    saveState(store.store)
-
+    saveState(store.store);
   }, [store]);
 
   return (
     <div>
-      <div>
-        <h1>Top Of The Day</h1>
-        <div className="wrapper-movie">
-          <div className="movie-top-day">
-            {store.moviesTopDay.date !== "" &&
-              store.moviesTopDay?.top.map((m) => (
-                <MovieCard
-                  key={m.id}
-                  id={m.id}
-                  title={m.original_title}
-                  img={m.poster_path}
-                />
-              ))}
-          </div>
-        </div>
-      </div>
-      <div>
-        <h1>Top Of The Week</h1>
-        <div className="wrapper-movie">
-          <div className="movie-top-day">
-            {store.moviesTopWeek.date !== "" &&
-              store.moviesTopWeek?.top.map((m) => (
-                <MovieCard
-                  key={m.id}
-                  id={m.id}
-                  title={m.original_title}
-                  img={m.poster_path}
-                />
-              ))}
-          </div>
-        </div>
-      </div>
+      {store.moviesTopDay.date !== "" && store.moviesTopDay ? (
+        <MovieCards title="Top Of The Day" movies={store.moviesTopDay.top} />
+      ) : (
+        ""
+      )}
+      {store.moviesTopWeek.date !== "" && store.moviesTopWeek ? (
+        <MovieCards title="Top Of The Day" movies={store.moviesTopWeek.top} />
+      ) : (
+        ""
+      )}
     </div>
   );
 }

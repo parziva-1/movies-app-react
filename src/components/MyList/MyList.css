@@ -9,3 +9,11 @@
   flex-flow: row wrap;
   justify-content: space-around;
 }
+
+.select-container {
+  display: flex;
+}
+
+p + p {
+  padding-left: 1rem;
+}

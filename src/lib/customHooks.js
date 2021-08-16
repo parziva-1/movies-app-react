@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useRef, useEffect } from "react";
 
 export const useToggle = (initialState = false) => {
   // Initialize the state

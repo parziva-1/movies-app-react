@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import { Image } from "@chakra-ui/react";
 //import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -24,4 +24,4 @@ const MovieCard = ({ title = undefined, img, isFavorite, score, id }) => {
   return ""
 };
 
-export default MovieCard;
+export default memo(MovieCard);

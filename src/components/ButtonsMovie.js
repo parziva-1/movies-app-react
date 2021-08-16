@@ -80,6 +80,7 @@ const ButtonsMovie = ({
                 id: movie.id,
                 title: movie.original_title,
                 img: movie.poster_path,
+                genres: movie.genres
               })
             )
           }

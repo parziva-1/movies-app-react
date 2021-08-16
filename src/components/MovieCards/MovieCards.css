@@ -1,0 +1,16 @@
+.movie-top-day {
+  display: flex;
+  padding: 0 55px;
+}
+
+.movie-top-day:hover .movie-card {
+  transform: translateX(-10%);
+}
+
+.movie-card:hover ~ .movie-card {
+  transform: translateX(10%);
+}
+
+.movie-card:hover {
+  transform: scale(1.1) !important;
+}
