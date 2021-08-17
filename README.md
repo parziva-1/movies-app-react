@@ -1,3 +1,13 @@
+# Screenshots
+### Home
+![Screenshots 1](public/screenShots/1.png)
+### Movie Component
+![Screenshots 2](public/screenShots/2.png)
+### My List Component
+![Screenshots 3](public/screenShots/3.png)
+### My List Component Filter
+![Screenshots 4](public/screenShots/4.png)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
