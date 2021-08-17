@@ -55,7 +55,7 @@ const MyList = () => {
   return (
     <div>
       <div className="select-container">
-        <p>Filtros: </p>
+        <p>Filters: </p>
         <p>Movie State: </p>
         <select name="movieState" onChange={hanldeOnChangueFilters}>
           <option>All</option>

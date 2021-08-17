@@ -8,8 +8,8 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import Nav from "./components/Nav";
 import Movie from "./components/Movie/Movie";
-import FavoriteMovies from './components/FavoriteMovies'
 import MyList from './components/MyList/MyList'
+import ResultSearch from './components/ResultSearch'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -19,8 +19,8 @@ ReactDOM.render(
           <Route path="/" component={Nav}></Route>
           <Route exact path="/" component={App}></Route>
           <Route path="/movie/:id" component={Movie}></Route>
-          <Route path="/favorites" component={FavoriteMovies}></Route>
           <Route path="/my-list" component={MyList}></Route>
+          <Route path="/search/:search" component={ResultSearch}></Route>
         </BrowserRouter>
       </ChakraProvider>
     </Provider>
