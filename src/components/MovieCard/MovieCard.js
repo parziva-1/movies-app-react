@@ -11,6 +11,7 @@ const MovieCard = ({ title = undefined, img, isFavorite, score, id }) => {
   if (title !== undefined) {
     return (
       <div className="movie-card" title={title}>
+        <div>{isFavorite ? "si" : "no"}</div>
         <Link to={`/movie/${id}`}>
           {/* <p>{title.length > 15 ? title.substring(0,15)+"..." : title}</p> */}
           <LazyLoadImage
