@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import "./MovieCard.css";
 import { Image } from "@chakra-ui/react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import "../../App.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
-//p={5} m={4} maxW="sm" w="15%" borderWidth="1px" borderRadius="sm" overflow="hidden"
 
 const MovieCard = ({ title = undefined, img, isFavorite, score, id }) => {
   if (title !== undefined) {
