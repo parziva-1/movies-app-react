@@ -3,22 +3,19 @@
   margin-right: 0.5rem;
   transition: box-shadow 0.5s, transform 1s, margin-right 1s, margin-left 1s;
   margin-top: 1rem;
-  margin-bottom: 1rem;
 
   border-radius: 9px;
-  border: 1px solid rgba(0, 0, 0, 0.267);
   transition: transform 300ms ease 100ms;
-
 }
 
 .movie-card-img {
+  display: inline;
   max-width: 9em;
   object-fit: cover;
   border-radius: 9px;
 }
 
 .movie-card:hover {
-
   box-shadow: 3px 5px 10px #888888;
 }
 
@@ -28,8 +25,6 @@
     object-fit: cover;
   }
 }
-
-
 
 /* 
  .movie-card-img {
